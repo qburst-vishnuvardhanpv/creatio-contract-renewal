@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Altum Contract Renewal</title>
+    <!-- Modern Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #2563eb;
+            --primary-hover: #1d4ed8;
+            --bg-body: #f8fafc;
+            --card-bg: #ffffff;
+            --text-main: #0f172a;
+            --text-muted: #64748b;
+            --border-color: #e2e8f0;
+            --accent-light: #eff6ff;
+            --danger: #ef4444;
+            --success: #10b981;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .card {
+            background: var(--card-bg);
+            padding: 36px 40px;
+            border-radius: 16px;
+            max-width: 480px;
+            width: 100%;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.01);
+            border: 1px solid #f1f5f9;
+        }
+
+        .card-header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .card-header h2 {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--text-main);
+            margin-bottom: 6px;
+            letter-spacing: -0.02em;
+        }
+
+        .contract-info {
+            font-size: 14px;
+            color: var(--text-muted);
+            margin-bottom: 12px;
+        }
+
+        .contract-info strong {
+            color: var(--text-main);
+        }
+
+        .price-banner {
+            display: inline-block;
+            background-color: #f1f5f9;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 14px;
+            color: var(--text-main);
+            margin-bottom: 12px;
+            font-weight: 500;
+        }
+
+        .price-banner strong {
+            color: var(--primary);
+            font-size: 16px;
+            font-weight: 700;
+        }
+
+        .instruction-text {
+            font-size: 13px;
+            color: var(--text-muted);
+        }
+
+        .options-group {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .option-card {
+            position: relative;
+        }
+
+        .option-card input[type="radio"] {
+            position: absolute;
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .option-label {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 14px 18px;
+            border: 2px solid var(--border-color);
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            background-color: #fff;
+        }
+
+        .option-content {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .radio-custom {
+            width: 20px;
+            height: 20px;
+            border: 2px solid #cbd5e1;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s ease;
+            flex-shrink: 0;
+        }
+
+        .radio-custom::after {
+            content: '';
+            width: 10px;
+            height: 10px;
+            background-color: var(--primary);
+            border-radius: 50%;
+            transform: scale(0);
+            transition: transform 0.2s ease;
+        }
+
+        .plan-details {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .plan-title {
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--text-main);
+        }
+
+        .plan-subtext {
+            font-size: 12px;
+            color: var(--text-muted);
+            margin-top: 2px;
+        }
+
+        .badge {
+            font-size: 11px;
+            font-weight: 600;
+            padding: 4px 8px;
+            border-radius: 20px;
+            background-color: #f1f5f9;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .option-card:hover .option-label {
+            border-color: #93c5fd;
+            background-color: #f8fafc;
+        }
+
+        .option-card input[type="radio"]:checked+.option-label {
+            border-color: var(--primary);
+            background-color: var(--accent-light);
+        }
+
+        .option-card input[type="radio"]:checked+.option-label .radio-custom {
+            border-color: var(--primary);
+        }
+
+        .option-card input[type="radio"]:checked+.option-label .radio-custom::after {
+            transform: scale(1);
+        }
+
+        .option-card input[type="radio"]:checked+.option-label .badge {
+            background-color: #dbeafe;
+            color: var(--primary);
+        }
+
+        .btn-primary {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 14px 24px;
+            border-radius: 10px;
+            cursor: pointer;
+            width: 100%;
+            font-size: 15px;
+            font-weight: 600;
+            transition: background-color 0.2s ease, transform 0.1s ease;
+            box-shadow: 0 4px 6px -1px rgba(37, 99, 235, 0.2);
+        }
+
+        .btn-primary:hover {
+            background-color: var(--primary-hover);
+        }
+
+        .btn-decline {
+            background: none;
+            border: none;
+            color: var(--text-muted);
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 12px;
+            padding: 6px;
+            transition: color 0.2s ease;
+        }
+
+        .btn-decline:hover {
+            color: var(--danger);
+            text-decoration: underline;
+        }
+
+        .confirmation-view {
+            text-align: center;
+            padding: 10px 0;
+            display: none;
+        }
+
+        .status-icon-wrapper {
+            width: 64px;
+            height: 64px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px auto;
+        }
+
+        .status-icon-wrapper.success {
+            background-color: #d1fae5;
+            color: var(--success);
+        }
+
+        .status-icon-wrapper.decline {
+            background-color: #fef2f2;
+            color: var(--danger);
+        }
+
+        .confirmation-view h2 {
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--text-main);
+            margin-bottom: 8px;
+        }
+
+        .confirmation-view p {
+            font-size: 14px;
+            color: var(--text-muted);
+            line-height: 1.5;
+            margin-bottom: 24px;
+        }
+
+        .summary-box {
+            background-color: #f8fafc;
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 16px;
+            text-align: left;
+            margin-bottom: 12px;
+        }
+
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+            font-size: 13px;
+            margin-bottom: 8px;
+        }
+
+        .summary-row:last-child {
+            margin-bottom: 0;
+        }
+
+        .summary-row .label {
+            color: var(--text-muted);
+        }
+
+        .summary-row .value {
+            font-weight: 600;
+            color: var(--text-main);
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="card">
+        <!-- FORM CONTAINER -->
+        <div id="formContainer">
+            <div class="card-header">
+                <h2>Contract Renewal Plan</h2>
+                <p class="contract-info">Renewing Contract: <strong id="displayContractName">Your Contract</strong></p>
+
+                <div class="price-banner" id="priceBanner" style="display: none;">
+                    Base Rate: <strong id="displayPrice">$0</strong> / month
+                </div>
+
+                <p class="instruction-text">Please select your preferred renewal plan below.</p>
+            </div>
+
+            <form id="renewalForm" onSubmit="handleFormSubmit(event)">
+                <input type="hidden" id="QBTContractNumber" name="QBTContractNumber" value="" />
+                <input type="hidden" id="RenewalAction" name="RenewalAction" value="RENEW" />
+
+                <div class="options-group">
+                    <!-- 6-Month Option -->
+                    <div class="option-card">
+                        <input type="radio" name="QBTAltumContractTenure" id="t6" value="6">
+                        <label for="t6" class="option-label">
+                            <div class="option-content">
+                                <span class="radio-custom"></span>
+                                <div class="plan-details">
+                                    <span class="plan-title">6-Month Plan</span>
+                                    <span class="plan-subtext" id="subtext-t6">6 Months</span>
+                                </div>
+                            </div>
+                            <span class="badge">SHORT TERM</span>
+                        </label>
+                    </div>
+
+                    <!-- 1-Year Option (Default Checked) -->
+                    <div class="option-card">
+                        <input type="radio" name="QBTAltumContractTenure" id="t12" value="12" checked>
+                        <label for="t12" class="option-label">
+                            <div class="option-content">
+                                <span class="radio-custom"></span>
+                                <div class="plan-details">
+                                    <span class="plan-title">1-Year Plan</span>
+                                    <span class="plan-subtext" id="subtext-t12">12 Months</span>
+                                </div>
+                            </div>
+                            <span class="badge">STANDARD</span>
+                        </label>
+                    </div>
+
+                    <!-- 2-Year Option -->
+                    <div class="option-card">
+                        <input type="radio" name="QBTAltumContractTenure" id="t24" value="24">
+                        <label for="t24" class="option-label">
+                            <div class="option-content">
+                                <span class="radio-custom"></span>
+                                <div class="plan-details">
+                                    <span class="plan-title">2-Year Plan</span>
+                                    <span class="plan-subtext" id="subtext-t24">24 Months</span>
+                                </div>
+                            </div>
+                            <span class="badge">POPULAR</span>
+                        </label>
+                    </div>
+
+                    <!-- 3-Year Option -->
+                    <div class="option-card">
+                        <input type="radio" name="QBTAltumContractTenure" id="t36" value="36">
+                        <label for="t36" class="option-label">
+                            <div class="option-content">
+                                <span class="radio-custom"></span>
+                                <div class="plan-details">
+                                    <span class="plan-title">3-Year Plan</span>
+                                    <span class="plan-subtext" id="subtext-t36">36 Months</span>
+                                </div>
+                            </div>
+                            <span class="badge">BEST VALUE</span>
+                        </label>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn-primary" id="btnSubmit">Submit Renewal Plan</button>
+                <button type="button" class="btn-decline" onclick="handleDecline()">Decline Renewal</button>
+            </form>
+        </div>
+
+        <!-- CONFIRMATION / THANK YOU CONTAINER -->
+        <div id="confirmationContainer" class="confirmation-view">
+            <div id="statusIcon" class="status-icon-wrapper"></div>
+            
+            <h2 id="confirmationTitle">Thank You!</h2>
+            <p id="confirmationMessage">Your submission has been received.</p>
+
+            <div class="summary-box">
+                <div class="summary-row">
+                    <span class="label">Contract Number:</span>
+                    <span class="value" id="summaryContractNum">-</span>
+                </div>
+                <div class="summary-row">
+                    <span class="label">Selection Outcome:</span>
+                    <span class="value" id="summaryOutcome">-</span>
+                </div>
+                <div class="summary-row">
+                    <span class="label">Date:</span>
+                    <span class="value" id="summaryDate">-</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- CREATIO SCRIPTS -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <script src="https://webtracking-v01.bpmonline.com/JS/track-cookies.js"></script>
+    <script src="https://webtracking-v01.creatio.com/JS/create-object.js"></script>
+    <script>
+        var config = {
+            fields: {
+                "Number": "#QBTContractNumber",
+                "Notes": "#RenewalAction"
+            },
+            landingId: "ad4706b6-2532-4e3a-9746-1b48c70cc472",
+            serviceUrl: "https://11008194-demo.creatio.com/0/ServiceModel/GeneratedObjectWebFormService.svc/SaveWebFormObjectData",
+            redirectUrl: ""
+        };
+
+        function handleDecline() {
+            if (confirm("Are you sure you want to decline contract renewal?")) {
+                document.getElementById('RenewalAction').value = "0";
+                executeSubmission();
+            }
+        }
+
+        function handleFormSubmit(event) {
+            if (event) event.preventDefault();
+            var selectedRadio = document.querySelector("input[name='QBTAltumContractTenure']:checked");
+            if (selectedRadio) {
+                document.getElementById('RenewalAction').value = selectedRadio.value;
+            }
+            executeSubmission();
+        }
+
+        function executeSubmission() {
+            var actionVal = document.getElementById('RenewalAction').value;
+            var contractNum = document.getElementById('QBTContractNumber').value || 'N/A';
+
+            try {
+                landing.createObjectFromLanding(config);
+            } catch (err) {
+                console.log("Creatio trigger:", err);
+            }
+
+            document.getElementById('formContainer').style.display = 'none';
+            document.getElementById('confirmationContainer').style.display = 'block';
+
+            document.getElementById('summaryContractNum').textContent = contractNum;
+            document.getElementById('summaryDate').textContent = new Date().toLocaleDateString();
+
+            var iconContainer = document.getElementById('statusIcon');
+            if (actionVal === "0" || actionVal === "DECLINE") {
+                iconContainer.className = "status-icon-wrapper decline";
+                iconContainer.innerHTML = '<svg width="32" height="32" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"></path></svg>';
+                
+                document.getElementById('confirmationTitle').textContent = "Renewal Declined";
+                document.getElementById('confirmationMessage').textContent = "We've recorded your choice to decline renewal for this contract. An account representative will reach out shortly to assist with offboarding.";
+                document.getElementById('summaryOutcome').textContent = "Declined";
+                document.getElementById('summaryOutcome').style.color = "var(--danger)";
+            } else {
+                iconContainer.className = "status-icon-wrapper success";
+                iconContainer.innerHTML = '<svg width="32" height="32" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path></svg>';
+                
+                document.getElementById('confirmationTitle').textContent = "Thank You!";
+                document.getElementById('confirmationMessage').textContent = "Your contract renewal plan has been successfully processed. Our team is finalizing your contract updates in Creatio.";
+                
+                // Smart label formatting for 6 Months vs Years
+                var months = parseInt(actionVal);
+                var outcomeLabel = (months < 12) ? (months + " Months Renewal") : ((months / 12) + "-Year Renewal (" + months + " Mos)");
+                
+                document.getElementById('summaryOutcome').textContent = outcomeLabel;
+                document.getElementById('summaryOutcome').style.color = "var(--success)";
+            }
+        }
+
+        function initLanding() {
+            landing.initLanding(config);
+
+            var urlParams = new URLSearchParams(window.location.search);
+            var targetValue = urlParams.get('contractNum');
+            var contractName = urlParams.get('contractName');
+            var priceParam = urlParams.get('price');
+
+            if (targetValue) {
+                document.getElementById('QBTContractNumber').value = targetValue;
+            }
+
+            var nameDisplay = document.getElementById('displayContractName');
+            if (nameDisplay) {
+                if (contractName && targetValue) {
+                    nameDisplay.textContent = decodeURIComponent(contractName) + " (" + targetValue + ")";
+                } else if (contractName) {
+                    nameDisplay.textContent = decodeURIComponent(contractName);
+                } else if (targetValue) {
+                    nameDisplay.textContent = targetValue;
+                }
+            }
+
+            // Calculation Logic based on Monthly Base Price
+            if (priceParam && !isNaN(priceParam)) {
+                var monthlyPrice = parseFloat(priceParam);
+
+                document.getElementById('priceBanner').style.display = 'inline-block';
+                document.getElementById('displayPrice').textContent = '$' + monthlyPrice.toLocaleString();
+
+                // Calculate Totals based on monthly input
+                document.getElementById('subtext-t6').textContent = '$' + (monthlyPrice * 6).toLocaleString() + ' total ($' + monthlyPrice + '/mo)';
+                document.getElementById('subtext-t12').textContent = '$' + (monthlyPrice * 12).toLocaleString() + ' total ($' + monthlyPrice + '/mo)';
+                document.getElementById('subtext-t24').textContent = '$' + (monthlyPrice * 24).toLocaleString() + ' total ($' + monthlyPrice + '/mo)';
+                document.getElementById('subtext-t36').textContent = '$' + (monthlyPrice * 36).toLocaleString() + ' total ($' + monthlyPrice + '/mo)';
+            }
+        }
+
+        jQuery(document).ready(initLanding);
+    </script>
+
+</body>
+
+</html>
